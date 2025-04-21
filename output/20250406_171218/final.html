@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gut Microbiome Health Classification</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 1rem 0;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      margin-top: 1rem;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 0.5rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Gut Microbiome Health Classification</h1>
+    <p>Upload or simulate microbiome data to classify samples as healthy or diseased using PCA-based health index.</p>
+    <button class="btn" onclick="simulateClassification()">Simulate Classification</button>
+
+    <div id="results"></div>
+    <div id="plot"></div>
+  </div>
+
+  <script>
+    function simulateClassification() {
+      // Simulate 2D PCA scores
+      const samples = Array.from({length: 30}, (_, i) => {
+        const isHealthy = Math.random() < 0.5;
+        return {
+          id: i + 1,
+          label: isHealthy ? 'Healthy' : 'Diseased',
+          PC1: isHealthy ? Math.random() * 2 : Math.random() * 2 + 2,
+          PC2: isHealthy ? Math.random() * 2 : Math.random() * 2 + 2
+        };
+      });
+
+      const healthy = samples.filter(s => s.label === 'Healthy');
+      const diseased = samples.filter(s => s.label === 'Diseased');
+
+      // Create plot
+      const trace1 = {
+        x: healthy.map(d => d.PC1),
+        y: healthy.map(d => d.PC2),
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Healthy',
+        marker: { color: 'green' }
+      };
+
+      const trace2 = {
+        x: diseased.map(d => d.PC1),
+        y: diseased.map(d => d.PC2),
+        mode: 'markers',
+        type: 'scatter',
+        name: 'Diseased',
+        marker: { color: 'red' }
+      };
+
+      const layout = {
+        title: 'PCA of Gut Microbiome Samples',
+        xaxis: { title: 'PC1' },
+        yaxis: { title: 'PC2' },
+        showlegend: true
+      };
+
+      Plotly.newPlot('plot', [trace1, trace2], layout);
+
+      // Show classification table
+      let html = '<h2>Classification Results</h2><table><tr><th>ID</th><th>PC1</th><th>PC2</th><th>Label</th></tr>';
+      samples.forEach(s => {
+        html += `<tr><td>${s.id}</td><td>${s.PC1.toFixed(2)}</td><td>${s.PC2.toFixed(2)}</td><td>${s.label}</td></tr>`;
+      });
+      html += '</table>';
+      document.getElementById('results').innerHTML = html;
+    }
+  </script>
+</body>
+</html>

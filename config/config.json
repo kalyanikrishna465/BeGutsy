@@ -1,0 +1,35 @@
+{
+    "data": {
+      "taxonomy_file": "data/taxonomy.txt",
+      "pathways_file": "data/pathways.txt",
+      "metadata_file": "data/metadata.txt"
+    },
+    "preprocessing": {
+      "log_transform_threshold": 1,
+      "sigma": 1e-6
+    },
+    "feature_selection": {
+      "ks_pvalue_threshold": 0.001,
+      "selection_method": "KS"
+    },
+    "pca": {
+      "variance_explained": 0.95,
+      "n_components": null
+    },
+    "control_chart": {
+      "confidence_level": 0.9
+    },
+    "classification": {
+      "threshold_rule": "majority",
+      "combined_index_threshold": 0.5
+    },
+    "logging": {
+      "log_level": "DEBUG",
+      "log_file": "logs/pipeline.log"
+    },
+    "visualization": {
+      "static_format": "png",
+      "interactive": true
+    }
+  }
+  

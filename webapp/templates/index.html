@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gut Microbiome Health Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f0f2f5;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+        }
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+        input[type="file"] {
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4285F4;
+            border: none;
+            color: white;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            background: #e6f7ff;
+            padding: 15px;
+            border-left: 5px solid #1890ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Gut Microbiome Health Predictor</h2>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="file" name="csv_file" accept=".csv" required><br>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if result %}
+        <div class="result">
+            <p><strong>T² Index:</strong> {{ result["T2"] }}</p>
+            <p><strong>Q Index:</strong> {{ result["Q"] }}</p>
+            <p><strong>Combined Index:</strong> {{ result["Combined Index"] }}</p>
+            <p><strong>Predicted Status:</strong> <b>{{ result["Predicted Status"] }}</b></p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

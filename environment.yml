@@ -1,0 +1,12 @@
+name: CAMDA
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - plotly
+  - scipy
+  - pip
